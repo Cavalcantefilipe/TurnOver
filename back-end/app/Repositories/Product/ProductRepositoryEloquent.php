@@ -31,7 +31,9 @@ class ProductRepositoryEloquent implements ProductRepositoryInterface
 
     public function update(Model $product, array $data)
     {
-        return $product->update($data);
+        $product->update($data);
+
+        return $this->model->find($product->id);
     }
 
     public function delete(Model $product)
