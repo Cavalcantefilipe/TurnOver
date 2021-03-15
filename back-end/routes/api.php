@@ -19,3 +19,6 @@ Route::get('product/{id}', 'ProductController@getById');
 Route::post('product', 'ProductController@create');
 Route::put('product/{id}', 'ProductController@update');
 Route::delete('product/{id}', 'ProductController@delete');
+Route::post('products', 'ProductController@createMany');
+Route::put('products', 'ProductController@updateMany');
+Route::get('detail', 'ProductDetailController@get');
