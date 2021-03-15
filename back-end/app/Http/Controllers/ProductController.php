@@ -59,6 +59,33 @@ class ProductController extends Controller
 
     }
 
+    public function createMany(Request $request)
+    {
+        $valid = Validator::make(
+            $request->all(),
+            [
+                'products' => 'present|array',
+                'products.*.name' => 'required|string|max:200',
+                'products.*.quantity' => 'required|integer|min:0',
+                'products.*.price' => 'required|numeric|min:0'
+            ]
+        );
+
+        if ($valid->fails()) {
+            return response()->json($valid->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        try {
+            return $this->service->createMany(
+                $request->all()
+            );
+        } catch (\Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+    }
+
     public function update(int $id, Request $request)
     {
         $valid = Validator::make(
@@ -84,6 +111,34 @@ class ProductController extends Controller
                 'message' => $exception->getMessage(),
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function updateMany(Request $request)
+    {
+        $valid = Validator::make(
+            $request->all(),
+            [
+                'products' => 'present|array',
+                'products.*.id' => 'required|integer|exists:products,id',
+                'products.*.name' => 'required|string|max:200',
+                'products.*.quantity' => 'required|integer|min:0',
+                'products.*.price' => 'required|numeric|min:0'
+            ]
+        );
+
+        if ($valid->fails()) {
+            return response()->json($valid->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        try {
+            return $this->service->updateMany(
+                $request->all()
+            );
+        } catch (\Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
     public function delete(int $id)
