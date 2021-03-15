@@ -9,14 +9,13 @@ class ProductDetails extends Migration
     public function up()
     {
         Schema::create('productDetails', function (Blueprint $table) {
-            $table->id();
-            $table->integer('productId');
+            $table->increments('id');
+            $table->integer('productId')->unsigned();
             $table->integer('quantity');
             $table->datetime('inDate');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('productId')->references('id')->on('products')->onDelete('cascade');;
+            $table->foreign('productId')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
