@@ -2,6 +2,7 @@
 
 namespace App\Models\Product;
 
+use App\Models\ProductDetail\ProductDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,5 +17,11 @@ class Product extends Model
         'quantity',
         'price'
     ];
+
+    protected $with = ['productDetail'];
+
+    public function productDetail(){
+        return $this->hasMany(ProductDetail::class, 'productId')->orderBy('inDate');
+    }
 
 }
