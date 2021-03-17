@@ -118,7 +118,7 @@ class ProductController extends Controller
         $valid = Validator::make(
             $request->all(),
             [
-                'products' => 'present|array',
+                'products' => 'required|array',
                 'products.*.id' => 'required|integer|exists:products,id',
                 'products.*.name' => 'required|string|max:200',
                 'products.*.quantity' => 'required|integer|min:0',

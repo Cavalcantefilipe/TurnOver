@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product\Product;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
+
     public function run()
     {
-        \App\Models\Product\Product::factory(10)->create();
+        Product::factory()->make();
     }
 }
